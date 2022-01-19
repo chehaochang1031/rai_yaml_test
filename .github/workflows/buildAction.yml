@@ -35,7 +35,7 @@ jobs:
         run: ./gradlew clean && ./gradlew app:assembleDebug
 
       - name: Upload File to FTP
-        run: curl -F v${{steps.build.outputs}} ftp://david:a123321a@ftpweb.intemotech.com/mrt_upload/
+        run: curl -F ${{steps.build.outputs}} ftp://david:a123321a@ftpweb.intemotech.com/mrt_upload/
 
 #      - name: Upload APK
 #        uses: actions/upload-artifact@v2
