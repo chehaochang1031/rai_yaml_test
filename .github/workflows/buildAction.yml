@@ -41,11 +41,18 @@ jobs:
           APK_NAME=`basename $APK_PATH`
           echo ::set-output name=apk_name::$APK_NAME
 
+      - name: Substitute String
+        uses: bluwy/substitute-string-action@v1
+        id: sub
+        with:
+          _input-text: ${{steps.prepare_release.outputs.apk_name}}
+          .apk:
+
       - name: Upload File to FTP
         uses: SamKirkland/FTP-Deploy-Action@4.2.0
         with:
           server: ${{ secrets.server }}
           username: ${{ secrets.username }}
           password: ${{ secrets.password }}
-          server-dir: ${{ secrets.server_dir }}${{steps.prepare_release.outputs.apk_name}}/
+          server-dir: ${{ secrets.server_dir }}${{steps.sub.outputs.result}}/
           local-dir: "./app/build/outputs/apk/debug/"
