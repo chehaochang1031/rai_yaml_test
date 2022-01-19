@@ -47,7 +47,7 @@ jobs:
           server: "sftp://ftpweb.intemotech.com/mrt_upload/"
           username: "david"
           password: "a123321a"
-          local-dir: ${{steps.prepare_release.outputs.apk_path}}
+          local-dir: "./app/build/outputs/apk/debug/"
 
 
 
