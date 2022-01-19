@@ -44,7 +44,7 @@ jobs:
       - name: Upload File to FTP
         uses: SamKirkland/FTP-Deploy-Action@4.2.0
         with:
-          server: "sftp://ftpweb.intemotech.com/mrt_upload/"
+          server: "ftpweb.intemotech.com/mrt_upload/"
           username: "david"
           password: "a123321a"
           local-dir: "./app/build/outputs/apk/debug/"
