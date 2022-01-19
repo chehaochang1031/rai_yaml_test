@@ -44,34 +44,8 @@ jobs:
       - name: Upload File to FTP
         uses: SamKirkland/FTP-Deploy-Action@4.2.0
         with:
-          server: "ftpweb.intemotech.com"
-          username: "david"
-          password: "a123321a"
-          server-dir: "./mrt_upload/"
+          server: ${{ secrets.server }}
+          username: ${{ secrets.username }}
+          password: ${{ secrets.password }}
+          server-dir: ${{ secrets.server_dir }}
           local-dir: "./app/build/outputs/apk/debug/"
-
-
-
-
-#        run: curl -F ${{steps.prepare_release.outputs.apk_path}} ftp://david:a123321a@ftpweb.intemotech.com/mrt_upload/
-
-#      - name: Upload APK
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: app-debug.apk
-#          path: app/build/outputs/apk/debug/
-#
-
-#  deploy:
-#    needs: apk
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v2
-#      - name: Download Artifact
-#        uses: actions/download-artifact@master
-#        with:
-#          name: app-debug.apk
-#          path: app/build/outputs/apk/debug/
-#      - name: Upload File to FTP
-#        run: curl -F "file=@/app/build/outputs/apk/debug/app-debug.apk" ftp://david:a123321a@ftpweb.intemotech.com/mrt_upload/
-
