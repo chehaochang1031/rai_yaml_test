@@ -44,7 +44,7 @@ jobs:
       - name: Upload File to FTP
         uses: GenieTim/ftp-action@v4.0.1
         with:
-          host: "ftp://ftpweb.intemotech.com/mrt_upload/"
+          host: "ftpweb.intemotech.com/mrt_upload/"
           user: "david"
           password: "a123321a"
           localDir: ${{steps.prepare_release.outputs.apk_path}}
