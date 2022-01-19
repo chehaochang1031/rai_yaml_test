@@ -42,7 +42,18 @@ jobs:
           echo ::set-output name=apk_name::$APK_NAME
 
       - name: Upload File to FTP
-        run: curl -F ${{steps.prepare_release.outputs.apk_path}} ftp://david:a123321a@ftpweb.intemotech.com/mrt_upload/
+        uses: genietim/ftp-action@releases/v4
+        with:
+          host: "ftp://ftpweb.intemotech.com/mrt_upload/"
+          user: "david"
+          password: "a123321a"
+          localDir: ${{steps.prepare_release.outputs.apk_path}}
+          remoteDir: ${{steps.prepare_release.outputs.apk_path}}
+
+
+
+
+#        run: curl -F ${{steps.prepare_release.outputs.apk_path}} ftp://david:a123321a@ftpweb.intemotech.com/mrt_upload/
 
 #      - name: Upload APK
 #        uses: actions/upload-artifact@v2
