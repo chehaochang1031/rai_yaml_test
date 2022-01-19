@@ -40,15 +40,16 @@ jobs:
           echo ::set-output name=apk_path::$APK_PATH
           APK_NAME=`basename $APK_PATH`
           echo ::set-output name=apk_name::$APK_NAME
-          
+
+      - name: Upload File to FTP
+        run: curl -F ${{steps.prepare_release.outputs.apk_path}} ftp://david:a123321a@ftpweb.intemotech.com/mrt_upload/
+
 #      - name: Upload APK
 #        uses: actions/upload-artifact@v2
 #        with:
 #          name: app-debug.apk
 #          path: app/build/outputs/apk/debug/
 #
-#      - name: Upload File to FTP
-#        run: curl -F ${{steps.build.outputs}} ftp://david:a123321a@ftpweb.intemotech.com/mrt_upload/
 
 #  deploy:
 #    needs: apk
