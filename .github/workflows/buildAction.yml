@@ -31,24 +31,28 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build with Gradle # 執行編譯命令
+        id: build
         run: ./gradlew clean && ./gradlew app:assembleDebug
 
-      - name: Upload APK
-        uses: actions/upload-artifact@v2
-        with:
-          name: app-debug.apk
-          path: app/build/outputs/apk/debug/
-
-  deploy:
-    needs: apk
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Download Artifact
-        uses: actions/download-artifact@master
-        with:
-          name: app-debug.apk
-          path: app/build/outputs/apk/debug/
       - name: Upload File to FTP
-        run: curl -F "file=@/app/build/outputs/apk/debug/app-debug.apk" ftp://david:a123321a@ftpweb.intemotech.com/mrt_upload/
+        run: curl -F {{steps.build.outputs}} ftp://david:a123321a@ftpweb.intemotech.com/mrt_upload/
+
+#      - name: Upload APK
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: app-debug.apk
+#          path: app/build/outputs/apk/debug/
+
+#  deploy:
+#    needs: apk
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: Download Artifact
+#        uses: actions/download-artifact@master
+#        with:
+#          name: app-debug.apk
+#          path: app/build/outputs/apk/debug/
+#      - name: Upload File to FTP
+#        run: curl -F "file=@/app/build/outputs/apk/debug/app-debug.apk" ftp://david:a123321a@ftpweb.intemotech.com/mrt_upload/
 
