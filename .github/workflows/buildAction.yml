@@ -42,13 +42,12 @@ jobs:
           echo ::set-output name=apk_name::$APK_NAME
 
       - name: Upload File to FTP
-        uses: GenieTim/ftp-action@v4.0.1
+        uses: SamKirkland/FTP-Deploy-Action@4.2.0
         with:
-          host: "ftpweb.intemotech.com/mrt_upload/"
-          user: "david"
+          server: "sftp://ftpweb.intemotech.com/mrt_upload/"
+          username: "david"
           password: "a123321a"
-          localDir: ${{steps.prepare_release.outputs.apk_path}}
-          remoteDir: ${{steps.prepare_release.outputs.apk_path}}
+          local-dir: ${{steps.prepare_release.outputs.apk_path}}
 
 
 
