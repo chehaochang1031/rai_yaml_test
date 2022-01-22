@@ -30,13 +30,20 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Build with Gradle # 執行編譯命令
-        run: ./gradlew clean && ./gradlew app:assembleDebug
+      - name: Sign app APK
+        uses: r0adkll/sign-android-release@v1
+          id: sing_app
+          with:
+            releaseDirectory: app/build/outputs/apk/release
+            signingKeyBase64: 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
+            alias: key0
+            keyStorePassword: a123321a
+            keyPassword: a123321a
 
       - name: Prepare Release
         id: prepare_release
         run: |
-          APK_PATH=`find . -name '*.apk' | grep debug`
+          APK_PATH=`find . -name '*.apk' | grep release`
           echo ::set-output name=apk_path::$APK_PATH
           APK_NAME=`basename $APK_PATH`
           echo ::set-output name=apk_name::$APK_NAME
@@ -55,4 +62,4 @@ jobs:
           username: ${{ secrets.username }}
           password: ${{ secrets.password }}
           server-dir: ${{ secrets.server_dir }}${{steps.sub.outputs.result}}/
-          local-dir: "./app/build/outputs/apk/debug/"
+          local-dir: "./app/build/outputs/apk/release/"
