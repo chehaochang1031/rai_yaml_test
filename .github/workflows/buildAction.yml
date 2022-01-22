@@ -32,12 +32,12 @@ jobs:
 
       - name: Sign app APK
         uses: r0adkll/sign-android-release@v1
-          with:
-            releaseDirectory: app/build/outputs/apk/release
-            signingKeyBase64: ${{secrets.signingkey}}
-            alias: key0
-            keyStorePassword: a123321a
-            keyPassword: a123321a
+        with:
+          releaseDirectory: app/build/outputs/apk/release
+          signingKeyBase64: ${{secrets.signingkey}}
+          alias: key0
+          keyStorePassword: a123321a
+          keyPassword: a123321a
 
       - name: Prepare Release
         id: prepare_release
