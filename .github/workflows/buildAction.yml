@@ -47,13 +47,13 @@ jobs:
           echo ${{steps.prepare_release.outputs.bundle_path}}/${{steps.prepare_release.outputs.apk_name}}
 
       - name: Sign app APK
-          uses: r0adkll/sign-android-release@v1
-          with:
-            releaseDirectory: ${{steps.prepare_release.outputs.apk_path}}
-            signingKeyBase64: ${{secrets.signingkey}}
-            alias: key0
-            keyStorePassword: a123321a
-            keyPassword: a123321a
+        uses: r0adkll/sign-android-release@v1
+        with:
+          releaseDirectory: ${{steps.prepare_release.outputs.apk_path}}
+          signingKeyBase64: ${{secrets.signingkey}}
+          alias: key0
+          keyStorePassword: a123321a
+          keyPassword: a123321a
 
       - name: Substitute String
         uses: bluwy/substitute-string-action@v1
