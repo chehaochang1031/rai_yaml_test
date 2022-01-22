@@ -31,10 +31,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build with Gradle # 執行編譯命令
-#        run: ./gradlew clean && ./gradlew app:assembleRelease
-        run: |
-          yarn install && cd android && chmod +x gradlew && ./gradlew build bundleRelease
-          du -shc `find . -regex '.+\.\(apk\|aab\)$'`
+        run: ./gradlew clean && ./gradlew app:assembleRelease
 
       - name: Prepare Release
         id: prepare_release
