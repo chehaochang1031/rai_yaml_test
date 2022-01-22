@@ -43,32 +43,30 @@ jobs:
 
       - name: Print build PATH
         run: |
-          echo ${{steps.prepare_release.outputs.bundle_path}}
           echo ${{steps.prepare_release.outputs.apk_name}}
           echo ${{steps.prepare_release.outputs.bundle_path}}/${{steps.prepare_release.outputs.apk_name}}
 
-#      - name: Sign app APK
-#          uses: r0adkll/sign-android-release@v1
-#          with:
-#            releaseDirectory: ./app/build/outputs/apk/release/
-#            signingKeyBase64: ${{secrets.signingkey}}
-#            alias: key0
-#            keyStorePassword: a123321a
-#            keyPassword: a123321a
+      - name: Sign app APK
+          uses: r0adkll/sign-android-release@v1
+          with:
+            releaseDirectory: ${{steps.prepare_release.outputs.apk_path}}
+            signingKeyBase64: ${{secrets.signingkey}}
+            alias: key0
+            keyStorePassword: a123321a
+            keyPassword: a123321a
 
-#      - name: Substitute String
-#        uses: bluwy/substitute-string-action@v1
-#        id: sub
-#        with:
-#          _input-text: ${{steps.prepare_release.outputs.apk_path}}
-#          app/build/outputs/apk/release/:
-#          -signed.apk:
-##
-#      - name: Upload File to FTP
-#        uses: SamKirkland/FTP-Deploy-Action@4.2.0
-#        with:
-#          server: ${{ secrets.server }}
-#          username: ${{ secrets.username }}
-#          password: ${{ secrets.password }}
-#          server-dir: ${{ secrets.server_dir }}${{steps.sub.outputs.result}}/
-#          local-dir: "./app/build/outputs/apk/release/"
+      - name: Substitute String
+        uses: bluwy/substitute-string-action@v1
+        id: sub
+        with:
+          _input-text: ${{steps.prepare_release.outputs.apk_name}}
+          .apk:
+#
+      - name: Upload File to FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.2.0
+        with:
+          server: ${{ secrets.server }}
+          username: ${{ secrets.username }}
+          password: ${{ secrets.password }}
+          server-dir: ${{ secrets.server_dir }}${{steps.sub.outputs.result}}/
+          local-dir: ${{steps.prepare_release.outputs.apk_path}}
