@@ -29,7 +29,7 @@ jobs:
 
       - name: Build with Gradle # 執行編譯命令
 #        run: cd android && chmod +x gradlew && ./gradlew app:assembleRelease
-        run: cd android && chmod +x gradlew && ./gradlew build bundleRelease
+        run: chmod +x gradlew && ./gradlew build bundleRelease
 
       - name: Prepare Release
         id: prepare_release
@@ -47,7 +47,7 @@ jobs:
       - name: Sign app APK
         uses: r0adkll/sign-android-release@v1
         with:
-          releaseDirectory: ./android/app/build/outputs/bundle/release/
+          releaseDirectory: ./app/build/outputs/bundle/release/
           signingKeyBase64: ${{secrets.signingkey}}
           alias: key0
           keyStorePassword: a123321a
