@@ -27,11 +27,9 @@ jobs:
           distribution: 'adopt'
           cache: gradle
 
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-
       - name: Build with Gradle # 執行編譯命令
-        run: ./gradlew clean && ./gradlew app:assembleRelease
+#        run: cd android && chmod +x gradlew && ./gradlew app:assembleRelease
+        run: cd android && chmod +x gradlew && ./gradlew build bundleRelease
 
       - name: Prepare Release
         id: prepare_release
