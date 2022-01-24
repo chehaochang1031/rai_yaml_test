@@ -66,4 +66,4 @@ jobs:
           username: ${{ secrets.username }}
           password: ${{ secrets.password }}
           server-dir: ${{ secrets.server_dir }}${{steps.sub.outputs.result}}/
-          local-dir: ${{steps.prepare_release.outputs.apk_path}}
+          local-dir: app/build/outputs/apk/release/
