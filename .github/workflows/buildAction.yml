@@ -31,7 +31,10 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build with Gradle # 執行編譯命令
-        run: ./gradlew clean && ./gradlew app:assembleRelease
+#        run: ./gradlew clean && ./gradlew app:assembleRelease
+        run: |
+          yarn install && cd android && chmod +x gradlew && ./gradlew build bundleRelease
+                  du -shc `find . -regex '.+\.\(apk\|aab\)$'`
 
       - name: Prepare Release
         id: prepare_release
@@ -49,7 +52,7 @@ jobs:
       - name: Sign app APK
         uses: r0adkll/sign-android-release@v1
         with:
-          releaseDirectory: ${{steps.prepare_release.outputs.bundle_path}}/
+          releaseDirectory: ./android/app/build/outputs/bundle/release/
           signingKeyBase64: ${{secrets.signingkey}}
           alias: key0
           keyStorePassword: a123321a
@@ -61,7 +64,7 @@ jobs:
         with:
           _input-text: ${{steps.prepare_release.outputs.apk_name}}
           .apk:
-#
+
       - name: Upload File to FTP
         uses: SamKirkland/FTP-Deploy-Action@4.2.0
         with:
