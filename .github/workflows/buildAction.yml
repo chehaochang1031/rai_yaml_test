@@ -47,23 +47,23 @@ jobs:
       - name: Sign app APK
         uses: victorbnl/build-signed-apk@main
         with:
-          keystore: ${{secrets.signingkey}}
+          keystore_b64: ${{secrets.signingkey}}
           key_alias: key0
           keystore_password: a123321a
           key_password: a123321a
 
-      - name: Substitute String
-        uses: bluwy/substitute-string-action@v1
-        id: sub
-        with:
-          _input-text: ${{steps.prepare_release.outputs.apk_name}}
-          .apk:
+#       - name: Substitute String
+#         uses: bluwy/substitute-string-action@v1
+#         id: sub
+#         with:
+#           _input-text: ${{steps.prepare_release.outputs.apk_name}}
+#           .apk:
 
-      - name: Upload File to FTP
-        uses: SamKirkland/FTP-Deploy-Action@4.2.0
-        with:
-          server: ${{ secrets.server }}
-          username: ${{ secrets.username }}
-          password: ${{ secrets.password }}
-          server-dir: ${{ secrets.server_dir }}${{steps.sub.outputs.result}}/
-          local-dir: app/build/outputs/apk/release/
+#       - name: Upload File to FTP
+#         uses: SamKirkland/FTP-Deploy-Action@4.2.0
+#         with:
+#           server: ${{ secrets.server }}
+#           username: ${{ secrets.username }}
+#           password: ${{ secrets.password }}
+#           server-dir: ${{ secrets.server_dir }}${{steps.sub.outputs.result}}/
+#           local-dir: app/build/outputs/apk/release/
